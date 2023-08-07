@@ -1,0 +1,11 @@
+instance_type = "t2.micro" # you can test with smaller sizes to control costs.  Default is a large size
+vault_license_filepath = "/replace/me/with/a/local/path/vault.hclic" # or "c:/path_to_license/vault.hclic"
+vault_license_name = "vault.hclic"
+vpc_id = "replace me with your VPC id"
+leader_tls_servername = "vault.server.com" 
+private_subnet_ids = [
+  "subnet-092b763926771e3f4", # Replace
+  "subnet-0ced6744eaaddffe3", # us
+  "subnet-010771ca6fa22c1a4", # with correct IDs
+]
+resource_name_prefix = "replace_me"

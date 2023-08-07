@@ -7,6 +7,13 @@
 
 data "aws_region" "current" {}
 
+# adding secrets to eliminate prereqs run
+module "secrets" {
+  source = "./modules/secrets/"
+
+  resource_name_prefix = var.resource_name_prefix
+}
+
 module "iam" {
   source = "./modules/iam"
 
@@ -15,7 +22,7 @@ module "iam" {
   kms_key_arn                  = module.kms.kms_key_arn
   permissions_boundary         = var.permissions_boundary
   resource_name_prefix         = var.resource_name_prefix
-  secrets_manager_arn          = var.secrets_manager_arn
+  secrets_manager_arn          = module.secrets.secrets_manager_arn
   user_supplied_iam_role_name  = var.user_supplied_iam_role_name
 }
 
@@ -33,7 +40,7 @@ module "loadbalancer" {
 
   allowed_inbound_cidrs   = var.allowed_inbound_cidrs_lb
   common_tags             = var.common_tags
-  lb_certificate_arn      = var.lb_certificate_arn
+  lb_certificate_arn      = module.secrets.lb_certificate_arn
   lb_deregistration_delay = var.lb_deregistration_delay
   lb_health_check_path    = var.lb_health_check_path
   lb_subnets              = var.private_subnet_ids
@@ -68,7 +75,7 @@ module "user_data" {
   kms_key_arn                 = module.kms.kms_key_arn
   leader_tls_servername       = var.leader_tls_servername
   resource_name_prefix        = var.resource_name_prefix
-  secrets_manager_arn         = var.secrets_manager_arn
+  secrets_manager_arn         = module.secrets.secrets_manager_arn
   user_supplied_userdata_path = var.user_supplied_userdata_path
   vault_license_name          = module.object_storage.vault_license_name
   vault_version               = var.vault_version

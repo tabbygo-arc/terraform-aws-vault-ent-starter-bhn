@@ -52,10 +52,10 @@ variable "leader_tls_servername" {
   description = "One of the shared DNS SAN used to create the certs use for mTLS"
 }
 
-variable "lb_certificate_arn" {
-  type        = string
-  description = "ARN of TLS certificate imported into ACM for use with LB listener"
-}
+#variable "lb_certificate_arn" {
+#  type        = string
+#  description = "ARN of TLS certificate imported into ACM for use with LB listener"
+#}
 
 variable "lb_deregistration_delay" {
   type        = string
@@ -102,10 +102,10 @@ variable "resource_name_prefix" {
   description = "Resource name prefix used for tagging and naming AWS resources"
 }
 
-variable "secrets_manager_arn" {
-  type        = string
-  description = "Secrets manager ARN where TLS cert info is stored"
-}
+#variable "secrets_manager_arn" {
+#  type        = string
+#  description = "Secrets manager ARN where TLS cert info is stored"
+#}
 
 variable "ssl_policy" {
   type        = string
