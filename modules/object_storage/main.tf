@@ -7,24 +7,33 @@
 
 resource "aws_s3_bucket" "vault_license_bucket" {
   bucket_prefix = "${var.resource_name_prefix}-vault-license"
-  acl           = "private"
+  force_destroy = true
+  tags = var.common_tags
+}
 
-  versioning {
-    enabled = true
-  }
+resource "aws_s3_bucket_server_side_encryption_configuration" "vault_license_bucket_encryption" {
+  bucket = aws_s3_bucket.vault_license_bucket.id
 
-  server_side_encryption_configuration {
-    rule {
-      apply_server_side_encryption_by_default {
-        kms_master_key_id = var.kms_key_arn
-        sse_algorithm     = "aws:kms"
-      }
+  rule {
+    apply_server_side_encryption_by_default {
+      kms_master_key_id = var.kms_key_arn
+      sse_algorithm     = "aws:kms"
     }
   }
+}
 
-  force_destroy = true
+resource "aws_s3_bucket_ownership_controls" "vault_license_bucket_controls" {
+  bucket = aws_s3_bucket.vault_license_bucket.id
+  rule {
+    object_ownership = "BucketOwnerPreferred"
+  }
+}
 
-  tags = var.common_tags
+resource "aws_s3_bucket_acl" "vault_license_bucket_acl" {
+  depends_on = [aws_s3_bucket_ownership_controls.vault_license_bucket_controls]
+
+  bucket = aws_s3_bucket.vault_license_bucket.id
+  acl    = "private"
 }
 
 resource "aws_s3_bucket_public_access_block" "vault_license_bucket" {
