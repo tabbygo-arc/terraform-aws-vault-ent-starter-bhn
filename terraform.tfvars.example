@@ -9,3 +9,5 @@ private_subnet_ids = [
   "subnet-010771ca6fa22c1a4", # with correct IDs
 ]
 resource_name_prefix = "replace_me"
+region = "us-east-1" # or appropriate region
+user_supplied_ami_id = "asdflkjklsajlkfjsd3jlkj" # replace with correct ami id

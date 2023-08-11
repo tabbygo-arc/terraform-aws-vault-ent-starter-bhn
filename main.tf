@@ -5,6 +5,10 @@
  *
  */
 
+provider "aws" {
+  region = var.region
+}
+
 data "aws_region" "current" {}
 
 # adding secrets to eliminate prereqs run
