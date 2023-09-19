@@ -11,3 +11,5 @@ private_subnet_ids = [
 resource_name_prefix = "replace_me"
 region = "us-east-1" # or appropriate region
 user_supplied_ami_id = "asdflkjklsajlkfjsd3jlkj" # replace with correct ami id
+secrets_manager_arn = "replace_me"
+lb_certificate_arn = "replace_me"
